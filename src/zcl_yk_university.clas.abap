@@ -39,29 +39,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_yk_university IMPLEMENTATION.
+CLASS ZCL_YK_UNIVERSITY IMPLEMENTATION.
 
-  METHOD create_university.
-
-    DATA(lo_university) = NEW zcl_YK_university( ).
-    lo_university->name     = iv_university_name.
-    lo_university->location = iv_university_location.
-    lo_university->id       = university_counter.
-
-    APPEND lo_university TO universities.
-    rv_university_id = university_counter.
-    university_counter += 1.
-
-  ENDMETHOD.
-
-  METHOD get_university.
-    LOOP AT universities INTO DATA(lo_university).
-      IF lo_university->id = iv_university_id.
-        ro_university = lo_university.
-        RETURN.
-      ENDIF.
-    ENDLOOP.
-  ENDMETHOD.
 
   METHOD add_student.
 
@@ -77,16 +56,41 @@ CLASS zcl_yk_university IMPLEMENTATION.
 
   ENDMETHOD.
 
+
+  METHOD create_university.
+
+    DATA(lo_university) = NEW zcl_YK_university( ).
+    lo_university->name     = iv_university_name.
+    lo_university->location = iv_university_location.
+    lo_university->id       = university_counter.
+
+    APPEND lo_university TO universities.
+    rv_university_id = university_counter.
+    university_counter += 1.
+
+  ENDMETHOD.
+
+
   METHOD delete_student.
 
     DELETE students WHERE table_line->student_id = iv_student_id.
 
   ENDMETHOD.
 
+
+  METHOD get_university.
+    LOOP AT universities INTO DATA(lo_university).
+      IF lo_university->id = iv_university_id.
+        ro_university = lo_university.
+        RETURN.
+      ENDIF.
+    ENDLOOP.
+  ENDMETHOD.
+
+
   METHOD list_students.
 
     rt_students = students.
 
   ENDMETHOD.
-
 ENDCLASS.

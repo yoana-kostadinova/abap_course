@@ -1,0 +1,82 @@
+managed;
+with draft;
+
+define behavior for ZI_RAP_ORDER_YK alias Order
+implementation in class zbp_i_rap_order_yk unique
+persistent table zrap_order_yk
+draft table zrap_dorder_yk
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  association _Item { create; with draft; }
+
+  field ( numbering : managed, readonly ) OrderUuid;
+  field ( mandatory ) Customer;
+  field ( readonly ) OrderId, Status, CreationDate, CancelationDate, CompletionDate;
+  field ( readonly ) LastChangedAt, LastChangedBy, CreatedAt, CreatedBy, LocalLastChangedAt;
+
+  determination setIdOrder on save { create; }
+  determination setCreationDateOrder on save { create; }
+  determination setStatusOrder on save { create; }
+
+  validation validateCustomer on save { field Customer; create; }
+    validation validateOrderItems on save   { create; update; }
+
+  action ( features : instance ) orderCompleted result [1] $self;
+  action ( features : instance ) orderCancelled result [1] $self;
+  internal action recalcTotalPrice;
+
+
+  draft determine action Prepare
+  {
+    validation validateCustomer;
+  }
+
+  mapping for zrap_order_yk
+    {
+      OrderUuid       = order_uuid;
+      OrderId         = order_id;
+      Name            = name;
+      Status          = status;
+      Customer        = customer;
+      CreationDate    = creation_date;
+      CancelationDate = cancelation_date;
+      CompletionDate  = completion_date;
+      DeliveryCountry = delivery_country;
+      TotalPrice      = total_price;
+      Currency        = currency;
+    }
+}
+
+define behavior for ZI_RAP_ITEM_YK alias Item
+persistent table zrap_item_yk
+draft table zrap_ditem_yk
+lock dependent by _Order
+authorization dependent by _Order
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+
+  association _Order { with draft; }
+
+  field ( numbering : managed, readonly ) ItemUuid;
+  field ( readonly ) OrderUuid;
+  field ( readonly ) LastChangedAt, LastChangedBy, CreatedAt, CreatedBy, LocalLastChangedAt;
+
+  mapping for zrap_item_yk
+    {
+      ItemUuid   = item_uuid;
+      OrderUuid  = order_uuid;
+      Name       = name;
+      TotalPrice = total_price;
+      Currency   = currency;
+      Quantity   = quantity;
+    }
+
+}

@@ -13,7 +13,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_yk_abap_course_basics IMPLEMENTATION.
+CLASS ZCL_YK_ABAP_COURSE_BASICS IMPLEMENTATION.
+
 
   METHOD if_oo_adt_classrun~main.
 
@@ -78,6 +79,7 @@ CLASS zcl_yk_abap_course_basics IMPLEMENTATION.
     ENDLOOP.
 *   Task 9. Unit test
   ENDMETHOD.
+
 
   METHOD zif_abap_course_basics~calculator.
     TRY.
@@ -262,6 +264,7 @@ CLASS zcl_yk_abap_course_basics IMPLEMENTATION.
       INTO TABLE @et_travel_ids_task8_3.
   ENDMETHOD.
 
+
   METHOD zif_abap_course_basics~scrabble_score.
 
     DATA lv_char  TYPE c LENGTH 1.
@@ -291,5 +294,4 @@ CLASS zcl_yk_abap_course_basics IMPLEMENTATION.
     ENDDO.
 
   ENDMETHOD.
-
 ENDCLASS.

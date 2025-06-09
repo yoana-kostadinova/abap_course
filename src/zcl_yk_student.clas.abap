@@ -36,7 +36,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_yk_student IMPLEMENTATION.
+CLASS ZCL_YK_STUDENT IMPLEMENTATION.
+
 
   METHOD create_student.
 
@@ -53,6 +54,7 @@ CLASS zcl_yk_student IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD get_student.
 
     LOOP AT students INTO DATA(lo_student).
@@ -63,6 +65,7 @@ CLASS zcl_yk_student IMPLEMENTATION.
     ENDLOOP.
 
   ENDMETHOD.
+
 
   METHOD update_student.
 
@@ -77,5 +80,4 @@ CLASS zcl_yk_student IMPLEMENTATION.
     ENDLOOP.
 
   ENDMETHOD.
-
 ENDCLASS.

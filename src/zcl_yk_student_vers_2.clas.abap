@@ -40,7 +40,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_yk_student_vers_2 IMPLEMENTATION.
+CLASS ZCL_YK_STUDENT_VERS_2 IMPLEMENTATION.
+
 
   METHOD create_student.
 
@@ -62,6 +63,7 @@ CLASS zcl_yk_student_vers_2 IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD get_student.
 
     SELECT SINGLE *
@@ -77,6 +79,7 @@ CLASS zcl_yk_student_vers_2 IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
+
 
   METHOD update_student.
 

@@ -45,7 +45,18 @@ CLASS zcl_yk_university_vers_2 DEFINITION
 ENDCLASS.
 
 
-CLASS zcl_yk_university_vers_2 IMPLEMENTATION.
+
+CLASS ZCL_YK_UNIVERSITY_VERS_2 IMPLEMENTATION.
+
+
+  METHOD add_student.
+
+    UPDATE zstudent_yk
+      SET university_id = @university-id
+      WHERE student_id = @iv_student_id.
+
+  ENDMETHOD.
+
 
   METHOD create_university.
 
@@ -65,13 +76,6 @@ CLASS zcl_yk_university_vers_2 IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD add_student.
-
-    UPDATE zstudent_yk
-      SET university_id = @university-id
-      WHERE student_id = @iv_student_id.
-
-  ENDMETHOD.
 
   METHOD delete_student.
 
@@ -81,11 +85,11 @@ CLASS zcl_yk_university_vers_2 IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD list_students.
     SELECT *
     FROM zstudent_yk
     WHERE university_id = @university-id
     INTO TABLE @rt_students.
   ENDMETHOD.
-
 ENDCLASS.

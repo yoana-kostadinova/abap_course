@@ -1,0 +1,5 @@
+CLASS zbp_i_rap_order_yk DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_rap_order_yk.
+ENDCLASS.
+
+CLASS zbp_i_rap_order_yk IMPLEMENTATION.
+ENDCLASS.
